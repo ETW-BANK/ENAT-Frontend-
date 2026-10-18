@@ -1,5 +1,6 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import logo from "../assets/logo2.png";
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -19,7 +20,7 @@ export default function Layout() {
       <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
           <NavLink to="/" className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-500 font-bold text-white">E</div>
+            <img src={logo} alt="ENAT logo" className="h-12 w-12 shrink-0 object-contain md:h-48 md:w-48" />
             <div>
               <p className="text-sm font-semibold leading-none text-brand-600">ENAT</p>
               <p className="text-xs text-slate-500 leading-none mt-1">Ethiopian Nurses Assoc. of Texas</p>

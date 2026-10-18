@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   membersApi,
   MembershipStatusLabels,
@@ -15,9 +15,17 @@ import Spinner from "../components/Spinner";
 export default function Members() {
   const { isAdmin } = useAuth();
   const qc = useQueryClient();
+  const [searchParams] = useSearchParams();
   const [q, setQ] = useState("");
   const [type, setType] = useState<MembershipType | "">("");
-  const [status, setStatus] = useState<MembershipStatus | "">("");
+  const [status, setStatus] = useState<MembershipStatus | "">(() => {
+    const value = searchParams.get("status");
+    if (value === null) return "";
+    const parsed = Number(value);
+    return Number.isInteger(parsed) && parsed >= 0 && parsed < MembershipStatusLabels.length
+      ? parsed as MembershipStatus
+      : "";
+  });
 
   const { data, isLoading } = useQuery({
     queryKey: ["members", q, type, status],

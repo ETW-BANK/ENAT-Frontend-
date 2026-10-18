@@ -20,12 +20,12 @@ export default function Dashboard() {
         <Spinner />
       ) : (
         <div className="grid gap-4 md:grid-cols-3">
-          <StatCard label="Total Members" value={data.totalMembers} />
-          <StatCard label="Active" value={data.activeMembers} accent="brand" />
-          <StatCard label="Pending Approval" value={data.pendingMembers} accent="gold" />
-          <StatCard label="Active Mentorships" value={data.activeMentorships} />
-          <StatCard label="Upcoming Events" value={data.upcomingEvents} accent="gold" />
-          <StatCard label="Active Programs" value={data.activePrograms} accent="brand" />
+          <StatCard label="Total Members" value={data.totalMembers} to="/members" />
+          <StatCard label="Active" value={data.activeMembers} to="/members?status=1" accent="brand" />
+          <StatCard label="Pending Approval" value={data.pendingMembers} to="/members?status=0" accent="gold" />
+          <StatCard label="Active Mentorships" value={data.activeMentorships} to="/mentorship" />
+          <StatCard label="Upcoming Events" value={data.upcomingEvents} to="/events" accent="gold" />
+          <StatCard label="Active Programs" value={data.activePrograms} to="/programs" accent="brand" />
         </div>
       )}
     </div>
