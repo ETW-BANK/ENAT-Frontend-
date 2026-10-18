@@ -5,7 +5,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
 @layer base {
-  body { @apply bg-slate-50 text-slate-800 font-sans; }
+  body {
+    @apply text-slate-800 font-sans;
+    background: transparent;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.72)),
+      url("./assets/bg.jpg") center / cover no-repeat;
+  }
   h1, h2, h3 { @apply tracking-tight; }
 }
 
