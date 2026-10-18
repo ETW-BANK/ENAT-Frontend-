@@ -15,13 +15,13 @@ Vite uses port 5175 and fails rather than choosing another port if 5175 is occup
 
 ## GitHub Pages deployment
 
-Pushing to `main` builds and deploys the site to
-`https://etw-bank.github.io/ENAT-Frontend-/`. The deployment workflow supplies
-`VITE_API_URL`; no local `.env` file is published.
-
-The workflow serves `index.html` as the Pages 404 fallback so client-side routes
-such as `/login` work when opened directly. The API must allow the published
-Pages origin in its CORS policy for browser requests to succeed.
+GitHub Pages publishes the contents of the `gh-pages` branch at
+`https://etw-bank.github.io/ENAT-Frontend-/`. To publish an update, run
+`npm run build` with `VITE_API_URL` configured, copy `dist/index.html` to
+`dist/404.html`, then deploy the contents of `dist` to the `gh-pages` branch.
+The 404 fallback supports direct navigation to client-side routes such as
+`/login`. The API must allow `https://etw-bank.github.io` in its CORS policy for
+browser requests to succeed.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
