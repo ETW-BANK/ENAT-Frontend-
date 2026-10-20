@@ -23,6 +23,22 @@ The 404 fallback supports direct navigation to client-side routes such as
 `/login`. The API must allow `https://etw-bank.github.io` in its CORS policy for
 browser requests to succeed.
 
+## Activity browsing and registration
+
+Events and community programs are publicly browsable. Login is required only
+when registering; after login, the app completes the pending registration and
+returns to that activity. Event registration availability is based on the
+capacity and places-left fields returned by the API.
+
+Administrators can open `/admin/dashboard` and the event/program participant
+routes. The frontend checks the `Admin` role, and the API must enforce
+authorization for participant endpoints as well.
+
+## Tests
+
+Run `npm test` for the focused browsing, registration, and participant-access
+tests. Run `npm run build` for the production type-check and build.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

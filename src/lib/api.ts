@@ -19,6 +19,7 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem("enat_token");
       localStorage.removeItem("enat_user");
+      window.dispatchEvent(new Event("enat:unauthorized"));
     }
     return Promise.reject(error);
   }
@@ -48,7 +49,7 @@ export interface AuthResponse {
 export interface EventDto {
   id: number; title: string; description?: string; startsAt: string;
   endsAt?: string; location?: string; isVirtual: boolean;
-  ceHours: number; registrationCount: number;
+  ceHours: number; registrationCount: number; capacity?: number; placesLeft?: number;
 }
 
 export interface MentorshipDto {
@@ -59,6 +60,20 @@ export interface MentorshipDto {
 export interface CommunityProgramDto {
   id: number; name: string; description?: string;
   location?: string; scheduledFor?: string; isActive: boolean;
+  registrationCount?: number;
+}
+
+export interface RegistrationParticipant {
+  id?: number;
+  fullName?: string;
+  participantName?: string;
+  name?: string;
+  email?: string;
+  registeredAt?: string;
+  registrationDate?: string;
+  attended?: boolean;
+  isAttended?: boolean;
+  attendanceStatus?: string;
 }
 
 export interface DashboardStats {
@@ -104,6 +119,8 @@ export const eventsApi = {
     api.post<EventDto>("/api/Events", b).then(r => r.data),
   remove: (id: number) => api.delete(`/api/Events/${id}`),
   register: (eventId: number) => api.post(`/api/Events/${eventId}/register`),
+  participants: (eventId: number) =>
+    api.get<RegistrationParticipant[]>(`/api/Events/${eventId}/participants`).then(r => r.data),
 };
 
 export const mentorshipApi = {
@@ -117,6 +134,9 @@ export const mentorshipApi = {
 
 export const programsApi = {
   all: () => api.get<CommunityProgramDto[]>("/api/CommunityPrograms").then(r => r.data),
+  register: (programId: number) => api.post(`/api/CommunityPrograms/${programId}/register`),
+  participants: (programId: number) =>
+    api.get<RegistrationParticipant[]>(`/api/CommunityPrograms/${programId}/participants`).then(r => r.data),
   create: (b: { name: string; description?: string; location?: string; scheduledFor?: string }) =>
     api.post<CommunityProgramDto>("/api/CommunityPrograms", b).then(r => r.data),
   deactivate: (id: number) => api.post(`/api/CommunityPrograms/${id}/deactivate`),

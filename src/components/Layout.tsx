@@ -6,10 +6,10 @@ import logo from "../assets/logo2.png";
 const navItems = [
   { to: "/", label: "Home" },
   { to: "/events", label: "Events" },
-  { to: "/programs", label: "Community" },
+  { to: "/community-programs", label: "Community" },
   { to: "/members", label: "Members", auth: true },
   { to: "/mentorship", label: "Mentorship", auth: true },
-  { to: "/dashboard", label: "Dashboard", auth: true, admin: true },
+  { to: "/admin/dashboard", label: "Dashboard", auth: true, admin: true },
 ];
 
 export default function Layout() {

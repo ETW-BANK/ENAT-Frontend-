@@ -45,6 +45,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => clearTimeout(timer);
   }, [user]);
 
+  useEffect(() => {
+    const handleUnauthorized = () => setUserState(null);
+    window.addEventListener("enat:unauthorized", handleUnauthorized);
+    return () => window.removeEventListener("enat:unauthorized", handleUnauthorized);
+  }, []);
+
   return (
     <AuthCtx.Provider value={{ user, isAdmin: !!user?.roles?.includes("Admin"), login, logout, setUser }}>
       {children}
