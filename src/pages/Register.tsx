@@ -16,6 +16,7 @@ const schema = z.object({
     .regex(/[0-9]/, "Need a number"),
   phone: z.string().optional(),
   city: z.string().optional(),
+  workAddress: z.string().optional(),
   membershipType: z.string(),
   licenseNumber: z.string().optional(),
   specialty: z.string().optional(),
@@ -91,6 +92,10 @@ export default function Register() {
           <div>
             <label className="label">City</label>
             <input className="input" {...register("city")} />
+          </div>
+          <div>
+            <label className="label">WorkAddress</label>
+            <input className="input" {...register("workAddress")} />
           </div>
           <div>
             <label className="label">Membership Type</label>
